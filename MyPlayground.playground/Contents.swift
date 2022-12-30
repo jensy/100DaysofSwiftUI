@@ -14,9 +14,9 @@ let name = "Taylor"
 let age = 26
 let message = "Hello, my name is \(name) and I am \(age+10) years old."
 
-// Celsius to Fahrenheit calculator
-let degreesCelsius = Double(18)
-let degreesFahrenheit = Double((degreesCelsius*9)/5 + 32)
+// Checkpoint 1: Celsius to Fahrenheit calculator
+let degreesCelsius: Double = 18
+let degreesFahrenheit: Double = (degreesCelsius*9)/5 + 32
 print("It is \(degreesCelsius)°C today, that is \(degreesFahrenheit)° Fahrenheit.")
 
 // Arrays, type-safety
@@ -138,3 +138,18 @@ username = "@jensnikolaus"
 // More complicated code
 print(username)
 
+// Checkpoint 2: Create an array of strings, write code to print the number of items in the array, and also the number of unique items in the array
+
+let fruit = [
+    "banana",
+    "mango",
+    "apple",
+    "cherry",
+    "mango",
+    "watermelon"
+]
+print(fruit)
+print(fruit.count)
+let fruitBasket = Set(fruit)
+print(fruitBasket)
+print(fruitBasket.count)
