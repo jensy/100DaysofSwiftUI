@@ -1,155 +1,168 @@
 import Cocoa
 
-let filename = "paris.jpg"
-print(filename.hasSuffix(".jpg"))
-print(filename.hasSuffix(".gif"))
+// Day 5
 
-var isAuthenticated = false
-// ! means "not", and flips between true and false
-isAuthenticated = !isAuthenticated
-print(isAuthenticated)
+let score = 83
 
-// String interpolation
-let name = "Taylor"
-let age = 26
-let message = "Hello, my name is \(name) and I am \(age+10) years old."
-
-// Checkpoint 1: Celsius to Fahrenheit calculator
-let degreesCelsius: Double = 18
-let degreesFahrenheit: Double = (degreesCelsius*9)/5 + 32
-print("It is \(degreesCelsius)°C today, that is \(degreesFahrenheit)° Fahrenheit.")
-
-// Arrays, type-safety
-var beatles = ["John", "Paul", "George", "Ringo"]
-let numbers = [4, 8, 16, 32, 64, 128]
-var temperatures = [25.3, 28.2, 16.8]
-
-print(beatles[0])
-
-beatles.append("Sophie")
-beatles.append("Maddie")
-beatles.append("Jens")
-
-var scores = Array<Int>()
-print(scores)
-scores.append(100)
-scores.append(50)
-scores.append(260)
-print(scores)
-
-//var albums = Array<String>()
-var albums = [String]()
-albums.append("Folklore")
-albums.append("Fearless")
-albums.append("Red")
-print(albums)
-
-albums.count
-
-albums.remove(at: 2)
-print(albums)
-
-print(albums.contains("Red"))
-
-albums.reversed()
-// This does not really reverse the Array, but flags it, for performance reasons
-
-// Dictionaries
-var familyMember = [
-    "name": "Sophie",
-    "species": "dog",
-    "location": "Fort Collins",
-    "age": 3
-] as [String : Any]
-
-print(familyMember["name", default: "Unknown"])
-print(familyMember["age", default: "Unknown"])
-
-let olympics = [
-    2012: "London",
-    2016: "Rio de Janeiro",
-    2021: "Tokyo"
-]
-
-print(olympics[2012, default: "Unknown"])
-
-var heights = [String: Int]()
-heights["Yao Ming"] = 229
-heights["Shaquille O'Neal"] = 226
-heights["LeBron James"] = 206
-// Overwriting value for Shaquille O'Neal
-heights["Shaquille O'Neal"] = 225
-
-print(heights["LeBron James", default: 0])
-print(heights["Shaquille O'Neal", default: 0])
-
-// Sets
-var actors = Set<String>([
-    "Denzel Washington",
-    "Tom Cruise",
-    "Nicolas Cage",
-    "Samuel L Jackson"
-])
-
-print(actors)
-actors.insert("Prince")
-print(actors)
-
-//actors.insert("Prince")
-// Sets do not allow duplicates
-
-actors.contains("Prince")
-// Sets provide fast lookup of items
-
-// Enums
-enum Weekday {
-    case monday, tuesday, wednesday, thursday, friday
+// Comparison operators
+if score > 80 {
+    print("Good job! 🥳")
 }
 
-var day = Weekday.monday
-day = .tuesday
-//day = Weekday.sunday
+let speed = 88
+let percentage = 85
 
-// Type annotation
-let surname: String = "Nikolaus"
-var score: Double = 0
-
-let playerName: String = "Roy"
-let luckyNumber: Int = 13
-let pi: Double = 3.141
-var isLoggedIn: Bool = true
-
-// All those do the same thing
-var teams: [String] = [String]()
-var cities: [String] = []
-var clues = [String]()
-
-enum UIStyle {
-    case light, dark, system
+if speed >= 88 {
+    print("Where we're going, we don't need roads.")
 }
 
-var style = UIStyle.light
-print(style)
-style = .dark
+if percentage < 85 {
+    print("Sorry, you failed the test.")
+} else {
+    print("You passed!")
+}
 
-let username: String
-// Lots of code
-username = "@jensnikolaus"
-// More complicated code
-print(username)
+let ourName = "Sophie"
+let friendName = "Gus"
 
-// Checkpoint 2: Create an array of strings, write code to print the number of items in the array, and also the number of unique items in the array
+if ourName < friendName {
+    print("It's \(ourName) vs \(friendName)")
+}
 
-let fruit = [
-    "banana",
-    "mango",
-    "apple",
-    "cherry",
-    "mango",
-    "watermelon"
-]
-print(fruit)
-print(fruit.count)
-let fruitBasket = Set(fruit)
-print(fruitBasket)
-print(fruitBasket.count)
+if ourName > friendName {
+    print("It's \(friendName) vs \(ourName)")
+}
+
+var numbers = [1, 2, 3]
+numbers.append(4)
+
+if numbers.count > 3 {
+    numbers.remove(at: 0)
+}
+print(numbers)
+
+let country = "USA"
+
+if country == "Australia" {
+    print("Howdy!")
+}
+
+let name = "Taylor Swift"
+
+if name != "anonymous" {
+    print("Welcome \(name)")
+}
+
+var username = "jensnikolaus"
+
+if username.isEmpty {
+    username = "anonymous"
+}
+
+print("Welcome, \(username)")
+
+// How to check multiple conditions
+//if a {
+//    print("Code to run if a is true")
+//} else if b {
+//    print("Code to run if a is false but b is true")
+//} else {
+//    print("Code to run if both a and b are false")
+//}
+
+let temp = 25
+
+//if temp > 20 {
+//    if temp < 30 {
+//        print("It's a nice day!")
+//    }
+//}
+
+if temp > 20 && temp < 30 {
+    print("It's a nice day!")
+}
+
+let userAge = 14
+let hasParentalConsent = false
+
+if userAge >= 18 || hasParentalConsent == true {
+    print("You can buy the game!")
+} else {
+    print("You are not allowed to buy the game. Ask your parents for permission!")
+}
+
+enum TransportOption {
+    case airplane, helicopter, bike, car, rollerskates
+}
+
+let transport = TransportOption.airplane
+
+if transport == .airplane || transport == .helicopter {
+    print("Let's fly!")
+} else if transport == .bike {
+    print("I hope there is a bike path.")
+} else if transport == .car {
+    print("Time to get stuck in traffic.")
+} else {
+    print("I am going to search for my rollerskates.")
+}
+
+// Switch statements
+enum weatherOptions {
+    case sun, rain, snow
+}
+
+let forecast = weatherOptions.rain
+
+switch forecast {
+case .sun:
+    print("It should be a beautiful day!")
+case .rain:
+    print("Pack an umbrella.")
+case .snow:
+    print("School is cancelled.")
+}
+
+let place = "Fort Collins"
+
+switch place {
+case "Boulder":
+    print("Beautiful trails here.")
+case "Fort Collins":
+    print("Welcome to FoCo! Have a cider.")
+    // fallthrough: It will work its way down when using fallthrough
+// If you put default first, it will always go to default first
+default:
+    print("Huh?")
+}
+
+let age = 18
+
+// Ternary conditional operator: WTF (What, true, false)
+let canVote = age >= 18 ? "Yes" : "No"
+
+if age >= 18 {
+    print("You're eligible to vote.")
+} else {
+    print("You are not eligible to vote.")
+}
+
+print(canVote)
+
+let hour = 23
+
+print(hour < 12 ? "It's before noon!" : "It's after noon.")
+
+let names = ["Jane", "Kaylee", "Mal"]
+let crewCount = names.isEmpty ? "No crew here!" : "Hi, you \(names.count)"
+
+print(crewCount)
+
+enum Theme {
+    case light, dark
+}
+
+let theme = Theme.dark
+
+let background = theme == .dark ? "black" : "white"
+print(background)
