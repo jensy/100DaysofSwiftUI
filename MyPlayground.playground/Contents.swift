@@ -166,3 +166,105 @@ let theme = Theme.dark
 
 let background = theme == .dark ? "black" : "white"
 print(background)
+
+// Day 6
+var platforms = Set<String>([
+    "iOS",
+    "macOS",
+    "tvOS",
+    "watchOS"
+])
+
+for os in platforms {
+    print("Swift works great on \(os)")
+}
+
+for i in 1...12 {
+    print("5 x \(i) is \(5 * i)")
+    print("This \(i) times table")
+    for j in 1...12 {
+        print("   \(j) x \(i) is \(j * i)")
+    }
+}
+
+// Closed range
+for i in 1...5 {
+    print("Counting from 1 through 5: \(i)")
+}
+
+// This half-open range is good for arrays as it starts counting from 0
+for i in 1..<5 {
+    print("Counting from 1 through 5: \(i)")
+}
+
+var lyric = "Haters gonna"
+
+for _ in 1...5 {
+    lyric += " hate"
+}
+
+print(lyric)
+
+var countdown = 10
+
+while countdown > 0 {
+    print("\(countdown)…")
+    countdown -= 1
+}
+
+print("Blast off!")
+
+let id = Int.random(in: 1...1000)
+print(id)
+
+let amount = Double.random(in: 0...1)
+print(amount)
+
+
+var roll = 0
+
+while roll != 20 {
+    roll = Int.random(in: 1...20)
+    print("I rolled a \(roll)")
+}
+
+print("Critical hit!")
+
+let filenames = ["sophie.jpg", "ball.jpg", "tree.txt"]
+
+for filename in filenames {
+    if filename.hasSuffix(".jpg") == false {
+        continue
+    }
+    
+    print("Found picture: \(filename)")
+}
+
+let number1 = 6
+let number2 = 18
+var multiples = [Int]()
+
+for i in 1...100000 {
+    if i.isMultiple(of: number1) && i.isMultiple(of: number2) {
+        multiples.append(i)
+        
+        if multiples.count == 10 {
+            break
+        }
+    }
+}
+
+print(multiples)
+
+// Checkpoint 3
+for i in 1...100 {
+    if i.isMultiple(of: 3) && i.isMultiple(of: 5) {
+        print("FizzBuzz")
+    } else if i.isMultiple(of: 3) {
+        print("Fizz")
+    } else if i.isMultiple(of: 5) {
+        print("Buzz")
+    } else {
+        print(i)
+    }
+}
