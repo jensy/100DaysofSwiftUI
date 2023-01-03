@@ -1,95 +1,101 @@
 import Cocoa
 
-// Day 7
+// Day 8
 
-func showWelcome() {
-    print("Hello there!")
-}
-
-showWelcome()
-
-// Function with parameters number, end
-func printTimesTable(number: Int, end: Int) {
+// Specifying default values
+func printTimesTable(for number: Int, end: Int = 12) {
     for i in 1...end {
-        print("\(i) * \(number) is \(i * number)")
-    }
-}
-
-// Function call with arguments number, end
-printTimesTable(number: 5, end: 20)
-
-let root = sqrt(169)
-
-func rollDice(sides: Int) -> Int {
-    return Int.random(in: 1...sides)
-}
-
-let result = rollDice(sides: 12)
-print(result)
-
-// Compare two strings, do they contain the same letters?
-func compareWords(word1: String, word2: String) -> Bool {
-//    let sortedWord1 = word1.sorted()
-//    let sortedWord2 = word2.sorted()
-    word1.sorted() == word2.sorted()
-    
-//    My original code
-//    if sortedWord1 == sortedWord2 {
-//        print("Yup, we use the same letters in \(word1) and \(word2)!")
-//        return Bool(true)
-//    } else {
-//        print("Nope")
-//        return Bool(false)
-//    }
-}
-
-compareWords(word1: "tea", word2: "eat")
-compareWords(word1: "smell", word2: "shell")
-
-func pythagoras(a: Double, b: Double) -> Double {
-//    let input = a * a + b * b
-//    let root = sqrt(input)
-//    return root
-    
-    sqrt(a * a + b * b)
-}
-
-let c = pythagoras(a: 3, b: 4)
-print(c)
-
-// Function returning a tuple
-func getUser() -> (firstName: String, lastName: String) {
-//    (firstName: "Taylor", lastName: "Swift")
-    ("Taylor", "Swift")
-}
-
-// Converting tuple of two elements into two separate constants
-let (firstName, lastName) = getUser()
-
-//let firstName = user.firstName
-//let lastName = user.lastName
-print("Name: \(firstName) \(lastName)")
-
-func hireEmployee(name: String) { }
-func hireEmployee(location: String) { }
-func hireEmployee(title: String) { }
-
-let lyric = "I see a red door and I want to paint it black!"
-//print(lyric.hasPrefix("I see"))
-
-func isUppercase(_ string: String) -> Bool {
-    string == string.uppercased()
-}
-
-let string = "HELLO"
-let isUppercaseResult = isUppercase(string)
-print(isUppercaseResult)
-
-// External and internal name for number
-func printTimesTable2(for number: Int) {
-    for i in 1...12 {
         print("\(i) x \(number) is \(i * number)")
     }
 }
 
-printTimesTable2(for: 5)
+printTimesTable(for: 5, end: 20)
+printTimesTable(for: 6)
+
+var characters = ["Michael", "Pam", "Kelly", "Dwight"]
+print(characters.count)
+characters.removeAll(keepingCapacity: true)
+print(characters.count)
+
+// Errors in functions
+enum PasswordError: Error {
+    case short, obvious
+}
+
+func checkPassword(_ password: String) throws -> String {
+    if password.count < 5 {
+        throw PasswordError.short
+    }
+    if password == "12345" {
+        throw PasswordError.obvious
+    }
+    
+    if password.count < 8 {
+        return "OK"
+    } else if password.count < 10 {
+        return "Good"
+    } else {
+        return "Excellent"
+    }
+}
+
+let string = "12345"
+
+do {
+    let result = try checkPassword(string)
+    print("Password rating: \(result)")
+} catch PasswordError.short {
+    print("Please use a longer password!")
+} catch PasswordError.obvious {
+    print("Too obvious!")
+} catch {
+    print("There was an error: \(error.localizedDescription)")
+}
+
+// Checkpoint 4
+// Write function that accepts one integer parameter from 1 through 10,000
+// Return integer square root of that number
+// If number is less than 1 or greather than 10,000 you should throw an error
+// you should only consider integer square roots
+// if you cant find square root throw a "no root" error
+
+enum inputNumber: Error {
+    case tooLow, tooHigh, noRoot
+}
+
+func findSquareRoot(_ number: Int = 144) throws -> Int {
+    if number < 1 {
+        throw inputNumber.tooLow
+    } else if number > 10000 {
+        throw inputNumber.tooHigh
+    }
+    
+    var result = 0
+   
+    for i in 1...100 {
+        if i * i == number {
+        result = i
+        print("The square root is: \(result)")
+        return result
+        }
+        
+        if i > 100 {
+            throw inputNumber.noRoot
+        }
+    }
+
+    return result
+}
+
+do {
+    let squareRootResult = try findSquareRoot(142)
+} catch inputNumber.tooLow {
+    print("The number is smaller than 1, sorry.")
+} catch inputNumber.tooHigh {
+    print("The number is too high to process.")
+} catch inputNumber.noRoot {
+    print("I don't have a root for you today, sorry.")
+}
+
+
+// This sort of works, but I am missing throwing an error when user puts in, eg. 142
