@@ -53,11 +53,6 @@ do {
 }
 
 // Checkpoint 4
-// Write function that accepts one integer parameter from 1 through 10,000
-// Return integer square root of that number
-// If number is less than 1 or greather than 10,000 you should throw an error
-// you should only consider integer square roots
-// if you cant find square root throw a "no root" error
 
 enum inputNumber: Error {
     case tooLow, tooHigh, noRoot
@@ -78,17 +73,15 @@ func findSquareRoot(_ number: Int = 144) throws -> Int {
         print("The square root is: \(result)")
         return result
         }
-        
-        if i > 100 {
-            throw inputNumber.noRoot
-        }
     }
-
-    return result
+    
+    if result == 0 {
+        throw inputNumber.noRoot
+    }
 }
 
 do {
-    let squareRootResult = try findSquareRoot(142)
+    let squareRootResult = try findSquareRoot(144)
 } catch inputNumber.tooLow {
     print("The number is smaller than 1, sorry.")
 } catch inputNumber.tooHigh {
@@ -96,6 +89,3 @@ do {
 } catch inputNumber.noRoot {
     print("I don't have a root for you today, sorry.")
 }
-
-
-// This sort of works, but I am missing throwing an error when user puts in, eg. 142
