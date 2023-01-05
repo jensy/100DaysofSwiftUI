@@ -1,91 +1,97 @@
 import Cocoa
 
-// Day 8
+// Day 9: Closures
 
-// Specifying default values
-func printTimesTable(for number: Int, end: Int = 12) {
-    for i in 1...end {
-        print("\(i) x \(number) is \(i * number)")
-    }
-}
-
-printTimesTable(for: 5, end: 20)
-printTimesTable(for: 6)
-
-var characters = ["Michael", "Pam", "Kelly", "Dwight"]
-print(characters.count)
-characters.removeAll(keepingCapacity: true)
-print(characters.count)
-
-// Errors in functions
-enum PasswordError: Error {
-    case short, obvious
-}
-
-func checkPassword(_ password: String) throws -> String {
-    if password.count < 5 {
-        throw PasswordError.short
-    }
-    if password == "12345" {
-        throw PasswordError.obvious
-    }
-    
-    if password.count < 8 {
-        return "OK"
-    } else if password.count < 10 {
-        return "Good"
+func getUserData(for id: Int) -> String {
+    if id == 1989 {
+        return "Taylor Swift"
     } else {
-        return "Excellent"
+        return "Boop boop beep boop"
     }
 }
 
-let string = "12345"
+let data: (Int) -> String = getUserData
+let user = data(341)
+print(user)
 
-do {
-    let result = try checkPassword(string)
-    print("Password rating: \(result)")
-} catch PasswordError.short {
-    print("Please use a longer password!")
-} catch PasswordError.obvious {
-    print("Too obvious!")
-} catch {
-    print("There was an error: \(error.localizedDescription)")
-}
+let team = ["Gloria", "Suzan", "Piper", "Tiffany", "Sophie"]
+let sortedTeam = team.sorted()
+print(sortedTeam)
 
-// Checkpoint 4
-
-enum inputNumber: Error {
-    case tooLow, tooHigh, noRoot
-}
-
-func findSquareRoot(_ number: Int = 144) throws -> Int {
-    if number < 1 {
-        throw inputNumber.tooLow
-    } else if number > 10000 {
-        throw inputNumber.tooHigh
+func captainFirstSorted(name1: String, name2: String) -> Bool {
+    if name1 == "Suzan" {
+        return true
+    } else if name2 == "Suzan" {
+        return false
     }
     
-    var result = 0
-   
-    for i in 1...100 {
-        if i * i == number {
-        result = i
-        print("The square root is: \(result)")
-        return result
-        }
-    }
-    
-    if result == 0 {
-        throw inputNumber.noRoot
-    }
+    return name1 < name2
 }
 
-do {
-    let squareRootResult = try findSquareRoot(144)
-} catch inputNumber.tooLow {
-    print("The number is smaller than 1, sorry.")
-} catch inputNumber.tooHigh {
-    print("The number is too high to process.")
-} catch inputNumber.noRoot {
-    print("I don't have a root for you today, sorry.")
+//let captainFirstTeam = team.sorted(by: captainFirstSorted)
+//print(captainFirstTeam)
+
+let captainFirstTeam = team.sorted { name1, name2 in
+    if name1 == "Suzan" {
+        return true
+    } else if name2 == "Suzan" {
+        return false
+    }
+    
+    return name1 < name2
+}
+
+print(captainFirstTeam)
+
+// Shorthand syntax
+let reverseTeam = team.sorted { $0 > $1 }
+print(reverseTeam)
+
+let tOnly = team.filter { $0.hasPrefix("T") }
+print(tOnly)
+
+let uppercaseTeam = team.map { $0.uppercased() }
+print(uppercaseTeam)
+
+func doImportantWork(first: () -> Void, second: () -> Void, third: () -> Void) {
+    print("About to start first work")
+    first()
+    print("About to start second work")
+    second()
+    print("About to start third work")
+    third()
+    print("Done")
+}
+
+doImportantWork {
+    print("This is the first work")
+} second: {
+    print("This is the second work")
+} third: {
+    print("This is the third work")
+}
+
+// Checkpoint 5
+
+// Filter out any numbers that are even
+// Sort the array in ascending order
+// Map them to strings in the format "7 is a lucky number"
+// Print the resulting array, one item per line
+
+var luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+
+func filterOutLuckyNumbers(firstFilter: () -> Void, sortArray: () -> Void, mapToString: () -> Void) {
+    firstFilter()
+    sortArray()
+    mapToString()
+}
+
+filterOutLuckyNumbers {
+    luckyNumbers.removeAll(where: { $0.isMultiple(of: 2) })
+} sortArray: {
+    luckyNumbers = luckyNumbers.sorted { $0 < $1 }
+} mapToString: {
+    for number in luckyNumbers {
+        print("\(number) is a lucky number")
+    }
 }
