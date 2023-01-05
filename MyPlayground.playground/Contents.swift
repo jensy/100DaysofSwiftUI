@@ -91,7 +91,13 @@ filterOutLuckyNumbers {
 } sortArray: {
     luckyNumbers = luckyNumbers.sorted { $0 < $1 }
 } mapToString: {
-    for number in luckyNumbers {
-        print("\(number) is a lucky number")
+//    for number in luckyNumbers {
+//        print("\(number) is a lucky number")
+//    }
+    
+    // Using map here, but I am not sure why this is necessary, see code above
+    let toString = luckyNumbers.map { String($0) }
+    for i in toString {
+        print("\(i) is a lucky number")
     }
 }
