@@ -101,3 +101,24 @@ filterOutLuckyNumbers {
         print("\(i) is a lucky number")
     }
 }
+
+// Day 10
+struct Employee {
+    let name: String
+    var vacationRemaining: Int
+    
+    mutating func takeVacation(days: Int) {
+        if vacationRemaining > days {
+            vacationRemaining -= days
+            print("I am going on vacation!")
+            print("Days remaining: \(vacationRemaining)")
+        } else {
+            print("Oops, no vacation days left anymore.")
+        }
+    }
+}
+
+var archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
+archer.takeVacation(days: 5)
+print(archer.vacationRemaining)
+
