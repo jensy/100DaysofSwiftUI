@@ -1,124 +1,72 @@
 import Cocoa
 
-// Day 9: Closures
-
-func getUserData(for id: Int) -> String {
-    if id == 1989 {
-        return "Taylor Swift"
-    } else {
-        return "Boop boop beep boop"
-    }
-}
-
-let data: (Int) -> String = getUserData
-let user = data(341)
-print(user)
-
-let team = ["Gloria", "Suzan", "Piper", "Tiffany", "Sophie"]
-let sortedTeam = team.sorted()
-print(sortedTeam)
-
-func captainFirstSorted(name1: String, name2: String) -> Bool {
-    if name1 == "Suzan" {
-        return true
-    } else if name2 == "Suzan" {
-        return false
-    }
-    
-    return name1 < name2
-}
-
-//let captainFirstTeam = team.sorted(by: captainFirstSorted)
-//print(captainFirstTeam)
-
-let captainFirstTeam = team.sorted { name1, name2 in
-    if name1 == "Suzan" {
-        return true
-    } else if name2 == "Suzan" {
-        return false
-    }
-    
-    return name1 < name2
-}
-
-print(captainFirstTeam)
-
-// Shorthand syntax
-let reverseTeam = team.sorted { $0 > $1 }
-print(reverseTeam)
-
-let tOnly = team.filter { $0.hasPrefix("T") }
-print(tOnly)
-
-let uppercaseTeam = team.map { $0.uppercased() }
-print(uppercaseTeam)
-
-func doImportantWork(first: () -> Void, second: () -> Void, third: () -> Void) {
-    print("About to start first work")
-    first()
-    print("About to start second work")
-    second()
-    print("About to start third work")
-    third()
-    print("Done")
-}
-
-doImportantWork {
-    print("This is the first work")
-} second: {
-    print("This is the second work")
-} third: {
-    print("This is the third work")
-}
-
-// Checkpoint 5
-
-// Filter out any numbers that are even
-// Sort the array in ascending order
-// Map them to strings in the format "7 is a lucky number"
-// Print the resulting array, one item per line
-
-var luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
-
-func filterOutLuckyNumbers(firstFilter: () -> Void, sortArray: () -> Void, mapToString: () -> Void) {
-    firstFilter()
-    sortArray()
-    mapToString()
-}
-
-filterOutLuckyNumbers {
-    luckyNumbers.removeAll(where: { $0.isMultiple(of: 2) })
-} sortArray: {
-    luckyNumbers = luckyNumbers.sorted { $0 < $1 }
-} mapToString: {
-//    for number in luckyNumbers {
-//        print("\(number) is a lucky number")
-//    }
-    
-    // Using map here, but I am not sure why this is necessary, see code above
-    let toString = luckyNumbers.map { String($0) }
-    for i in toString {
-        print("\(i) is a lucky number")
-    }
-}
-
 // Day 10
 struct Employee {
     let name: String
-    var vacationRemaining: Int
+    var vacationAllocated = 14
+    var vacationTaken = 0
     
-    mutating func takeVacation(days: Int) {
-        if vacationRemaining > days {
-            vacationRemaining -= days
-            print("I am going on vacation!")
-            print("Days remaining: \(vacationRemaining)")
-        } else {
-            print("Oops, no vacation days left anymore.")
+    var vacationRemaining: Int {
+        get {
+            vacationAllocated - vacationTaken
+        }
+        
+        set {
+            // newValue is provided by Setter
+            vacationAllocated = vacationTaken + newValue
         }
     }
 }
 
-var archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
-archer.takeVacation(days: 5)
-print(archer.vacationRemaining)
+var archer = Employee(name: "Sterling Archer", vacationAllocated: 14)
+archer.vacationTaken += 4
+archer.vacationRemaining = 5
+print(archer.vacationAllocated)
 
+struct Dog {
+    var breed: String
+    var cuteness: Int
+    var rating: String {
+        if cuteness < 3 {
+            return "That's a cute dog!"
+        } else if cuteness < 7 {
+            return "That's a really cute dog!"
+        } else {
+            return "That a super cute dog!"
+        }
+    }
+}
+let luna = Dog(breed: "Samoyed", cuteness: 11)
+
+struct App {
+    var contacts = [String]() {
+        willSet {
+            print("Current value is \(contacts)")
+            print("New value will be: \(newValue)")
+        }
+        
+        didSet {
+            print("There are now \(contacts.count) contacts")
+            print("Old value was: \(oldValue)")
+        }
+    }
+}
+
+var app = App()
+app.contacts.append("Adrian E")
+app.contacts.append("Allen W")
+app.contacts.append("Ish S")
+
+struct Player {
+    var name: String
+    var number: Int
+    
+    // Custom initializer 
+    init(name: String) {
+        self.name = name
+        number = Int.random(in: 1...99)
+    }
+}
+
+let player = Player(name: "Sophie")
+print(player)
