@@ -1,171 +1,184 @@
 import Cocoa
 
-// Day 10
-struct Employee {
-    let name: String
-    var vacationAllocated = 14
-    var vacationTaken = 0
-    
-    var vacationRemaining: Int {
-        get {
-            vacationAllocated - vacationTaken
-        }
-        
-        set {
-            // newValue is provided by Setter
-            vacationAllocated = vacationTaken + newValue
-        }
-    }
-}
+// Day 12
 
-var archer = Employee(name: "Sterling Archer", vacationAllocated: 14)
-archer.vacationTaken += 4
-archer.vacationRemaining = 5
-print(archer.vacationAllocated)
-
-struct Dog {
-    var breed: String
-    var cuteness: Int
-    var rating: String {
-        if cuteness < 3 {
-            return "That's a cute dog!"
-        } else if cuteness < 7 {
-            return "That's a really cute dog!"
-        } else {
-            return "That a super cute dog!"
-        }
-    }
-}
-let luna = Dog(breed: "Samoyed", cuteness: 11)
-
-struct App {
-    var contacts = [String]() {
-        willSet {
-            print("Current value is \(contacts)")
-            print("New value will be: \(newValue)")
-        }
-        
+class Game {
+    var score = 0 {
         didSet {
-            print("There are now \(contacts.count) contacts")
-            print("Old value was: \(oldValue)")
+            print("Score is now \(score)")
         }
     }
 }
 
-var app = App()
-app.contacts.append("Adrian E")
-app.contacts.append("Allen W")
-app.contacts.append("Ish S")
+var newGame = Game()
+newGame.score += 10
 
-struct Player {
-    var name: String
-    var number: Int
+// Inheritance
+class Employee {
+    let hours: Int
     
-    // Custom initializer
-    init(name: String) {
-        self.name = name
-        number = Int.random(in: 1...99)
+    init(hours: Int) {
+        self.hours = hours
+    }
+    
+    func printSummary() {
+        print("I work \(hours) hours a day!")
     }
 }
 
-let player = Player(name: "Sophie")
-print(player)
-
-// Day 11
-
-struct BankAccount {
-    private var funds = 0
-    
-    mutating func deposit(amount: Int) {
-        funds += amount
+class Developer: Employee {
+    func work() {
+        print("I'm writing code for \(hours) hours.")
     }
     
-    mutating func withdraw(amount: Int) -> Bool {
-        if funds > amount {
-            funds -= amount
-            return true
-        } else {
-            return false
+    override func printSummary() {
+        print("I am a developer who sometimes works \(hours) hours a day!")
+    }
+}
+
+// Nothing can inherit from this child class
+final class Manager: Employee {
+    func work() {
+        print("I'm going to meetings for \(hours) hours.")
+    }
+}
+
+let robert = Developer(hours: 8)
+let jane = Manager(hours: 10)
+
+robert.work()
+jane.work()
+
+let novall = Manager(hours: 6)
+novall.printSummary()
+robert.printSummary()
+
+class Vehicle {
+    var isElectric: Bool
+    
+    init(isElectric: Bool) {
+        self.isElectric = isElectric
+    }
+}
+
+class Car: Vehicle {
+    let isConvertible: Bool
+    
+    init(isElectric: Bool, isConvertible: Bool) {
+        self.isConvertible = isConvertible
+        super.init(isElectric: isElectric)
+    }
+}
+
+let teslaX = Car(isElectric: true, isConvertible: false)
+
+class User {
+    var username = "Anonymous"
+    
+    let id: Int
+    
+    init(id: Int) {
+        self.id = id
+        print("I'm alive!")
+    }
+    
+    deinit {
+        print("I'm gone.")
+    }
+}
+
+// Share common data in different parts of an app
+var user1 = User(id: 341)
+var user2 = user1
+user2.username = "Taylor"
+
+print(user1.username)
+print(user2.username)
+
+var users = [User]()
+
+for i in 1...3 {
+    let user = User(id: i)
+    print("User \(user.id): I'm in control!")
+    users.append(user)
+}
+
+print("Loop is finished!")
+users.removeAll()
+print("Array is clear!")
+
+// Checkpoint 7
+
+// Hierarchy for animals: Animal class, legs property
+// Make Dog subclass of Animal, speak method, each dog's bark is different
+// Make Corgi and Poddle subclasses of Dog
+// Make Cat subclass of Animal, with speak method and isTame Bool
+// Make Persian and Lion subclasses of Cat
+
+class Animal {
+    let legs = 4
+    
+    init(legs: Int = 4) {
+    }
+}
+
+class Dog: Animal {
+    func speak() {
+        print("Bark, bark, bark")
+    }
+}
+
+class Corgi: Dog {
+    override func speak() {
+        print("Bark, bark, I am a corgi.")
+    }
+}
+
+class Poodle: Dog {
+    override func speak() {
+        print("Bark, I am a poodle, bark!")
+    }
+}
+
+class Cat: Animal {
+    var isTame: Bool
+    
+    func speak() {
+        print("Meow, meow, meow")
+    }
+    
+    init(legs: Int = 4, isTame: Bool) {
+        self.isTame = isTame
+        super.init(legs: legs)
+        
+        if isTame == true {
+            print("Such a tame cat.")
         }
     }
 }
 
-var acc = BankAccount()
-acc.deposit(amount: 500)
-
-let success = acc.withdraw(amount: 200)
-
-if success {
-    print("Withdrew money successfully.")
-} else {
-    print("Not enough money in the account.")
-}
-
-struct AppData {
-    static let version = "1.4 beta 3"
-    static let saveFilename = "settings.json"
-    static let homeURL = "https://google.com"
-}
-
-AppData.version
-
-struct Painter {
-    let username: String
-    let password: String
-    
-    static let example = Painter(username: "jensnikolaus", password: "mygreatpw123")
-}
-
-Painter.example
-
-// Checkpoint 6
-// New Struct to store information about a car
-// Model, number of seats, current gear
-// Add a method to change gears up or down
-// Have a think about variables and access control
-// Don't allow invalid gears: 1...10
-
-struct Car {
-    let model: String
-    private let seatNumber: Int
-    private var currentGear = 5
-    
-    init(model: String) {
-        self.model = model
-        seatNumber = 4
-    }
-    
-    mutating func downshift(gears: Int) -> Bool {
-        if currentGear >= gears && currentGear - gears >= 1 {
-            currentGear -= gears
-            return true
-        } else {
-            print("Not enough gears!")
-            return false
-        }
-    }
-    
-    mutating func gearUp(gears: Int) -> Bool {
-        if currentGear + gears > 10 {
-            print("Only got 10 gears, kiddo!")
-            return false
-        } else {
-            currentGear += gears
-            return true
-        }
+class Persian: Cat {
+    override func speak() {
+        print("Meooooooooow…")
     }
 }
 
-var subaru = Car(model: "Forester")
-print(subaru)
-subaru.downshift(gears: 3)
-print(subaru)
-subaru.gearUp(gears: 6)
-print(subaru)
-subaru.downshift(gears: 9)
-print(subaru)
-subaru.gearUp(gears: 2)
-print(subaru)
-subaru.downshift(gears: 11)
-print(subaru)
-subaru.gearUp(gears: 2)
+class Lion: Cat {
+    override func speak() {
+        print("Roarrrrrrr!!!")
+    }
+}
+
+var sophie = Animal()
+
+let gus = Dog()
+gus.speak()
+
+let mips = Cat(isTame: true)
+mips.speak()
+
+let lion = Lion(isTame: false)
+lion.speak()
+
+let sausage = Poodle()
+sausage.speak()
