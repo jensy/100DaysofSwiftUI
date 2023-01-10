@@ -121,3 +121,74 @@ extension Book {
 }
 
 let myBookTitle = Book(title: "Title", pageCount: 259, readingHours: 8)
+
+// Protocol extensions, protocol oriented programming
+extension Collection {
+    var isNotEmpty: Bool {
+        isEmpty == false
+    }
+}
+
+let guests = ["Mario", "Luigi", "Daisy"]
+
+if guests.isNotEmpty {
+    print("Guest count: \(guests.count)")
+}
+
+protocol Person {
+    var name: String { get }
+    func sayHello()
+}
+
+extension Person {
+    func sayHello() {
+        print("Hi, I am \(name)!")
+    }
+}
+
+struct Employee: Person {
+    let name: String
+}
+
+let taylor = Employee(name: "Taylor Swift")
+taylor.sayHello()
+
+// Checkpoint 8
+// Create protocol Building
+// Add rooms: Int, cost: Int, agentName: String
+// Method that prints summary of the agent selling the building
+// Two structs: House and Office
+
+protocol Building {
+    var rooms: Int { get }
+    var cost: Int { get }
+    var agentName: String { get }
+    
+    func printSummary()
+}
+
+struct House: Building {
+    var rooms: Int
+    var cost: Int
+    var agentName: String
+    
+    func printSummary() {
+        print("The house has got \(rooms) rooms and costs $\(cost). Call \(agentName) to set up a tour.")
+    }
+}
+
+struct Office: Building {
+    var rooms: Int
+    var cost: Int
+    var agentName: String
+    
+    func printSummary() {
+        print("The office has got \(rooms) rooms and costs $\(cost). Call \(agentName) to set up a tour.")
+    }
+}
+
+let house = House(rooms: 4, cost: 250_000, agentName: "Roger Rabit")
+house.printSummary()
+
+let office = Office(rooms: 2, cost: 320_000, agentName: "Dori")
+office.printSummary()
