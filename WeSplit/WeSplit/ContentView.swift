@@ -8,20 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    let dogs = ["Sophie", "Gus", "Meve"]
-    @State private var selectedDog = "Sophie"
-    
     var body: some View {
-        NavigationView {
-            Form {
-                Picker("Select your dog", selection:
-                        $selectedDog) {
-                    ForEach(dogs, id: \.self) {
-                        Text($0)
-                    }
-                }
-            }
-        }
+        Text("Hello, world")
+            .padding()
     }
 }
 
