@@ -8,32 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var tapCount = 0
-    @State private var name = ""
+    let dogs = ["Sophie", "Gus", "Meve"]
+    @State private var selectedDog = "Sophie"
     
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    TextField("Enter your name", text: $name)
-                    Text("Hello, \(name)")
-                }
-                
-                Section {
-                    Text("Hello, world!")
-                }
-                
-                Section {
-                    Text("Hello, world!")
-                    Text("Hello, world!")
-                }
-                
-                Button("Tap Count: \(tapCount)") {
-                    tapCount += 1
+                Picker("Select your dog", selection:
+                        $selectedDog) {
+                    ForEach(dogs, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
-            .navigationTitle("WeSplit")
-//            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
