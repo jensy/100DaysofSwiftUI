@@ -12,14 +12,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var input = 0.0
+    let units = ["Meters", "Kilometers", "Feet", "Yards", "Miles"]
     @State private var unit = "Feet"
     @State private var unitOutput = "Meters"
-    
     @State private var unitSelector = 0
     @State private var unitSelectorOutput = 0
+    @State private var input = 0.0
     
-    let units = ["Meters", "Kilometers", "Feet", "Yards", "Miles"]
     let unitsToMeters = [1, 1000, 0.3048, 0.9144, 1609.34]
     let metersToUnits = [1, 0.001, 3.28084, 1.09361, 0.000621371]
     
@@ -29,8 +28,8 @@ struct ContentView: View {
         return meters
     }
 
-    var convertLength: Double {
-        let length = Double(toMeters * metersToUnits[unitSelectorOutput])
+    var convertLength: String {
+        let length = Double(toMeters * metersToUnits[unitSelectorOutput]).formatted()
 
         return length
     }
@@ -53,6 +52,8 @@ struct ContentView: View {
                     TextField("Amount", value: $input, format: .number)
                     .keyboardType(.decimalPad)
                     .focused($inputIsFocused)
+                } header: {
+                    Text("Input")
                 }
                 
                 Section {
@@ -65,7 +66,9 @@ struct ContentView: View {
                     .listRowInsets(.init())
                     .listRowBackground(Color(.systemBackground))
                     
-                    Text(convertLength, format: .number)
+                    Text(convertLength)
+                } header: {
+                    Text("Result")
                 }
             }
             .navigationTitle("Conversion")
