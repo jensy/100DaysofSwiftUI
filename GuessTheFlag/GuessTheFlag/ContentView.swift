@@ -9,13 +9,85 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 40) {
-            Spacer()
-            Text("Hello, world!")
-            Text("This is another text view")
+        VStack() {
             Spacer()
             Spacer()
-            Text("Third")
+            VStack() {
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+            }
+            
+            Spacer()
+            
+            VStack() {
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+            }
+            
+            Spacer()
+            
+            VStack() {
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+                HStack() {
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                    Spacer()
+                    Text("Hello, world!")
+                }
+            }
+            Spacer()
             Spacer()
         }
         .padding()
