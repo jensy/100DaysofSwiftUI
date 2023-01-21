@@ -26,7 +26,11 @@ struct ContentView: View {
             
                 .ignoresSafeArea()
             
+            
+            
             VStack() {
+                Spacer()
+                Spacer()
                 Text("Guess the Flag")
                     .font(.largeTitle.bold())
                         .foregroundColor(.white)
@@ -53,20 +57,19 @@ struct ContentView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 60)
+                .padding(.vertical, 20)
                 .background(.regularMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .padding()
-                
-                Spacer()
-                Spacer()
                 
                 Text("Score: \(score)")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
                 Spacer()
+                Spacer()
             }
+
         }
         .alert(scoreTitle, isPresented: $showingScore) {
             Button("Continue", action: askQuestion)
