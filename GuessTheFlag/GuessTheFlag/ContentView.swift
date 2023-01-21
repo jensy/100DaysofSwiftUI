@@ -25,12 +25,11 @@ struct ContentView: View {
             ], center: .top, startRadius: 200, endRadius: 700)
             
                 .ignoresSafeArea()
-            
-            
-            
+
             VStack() {
                 Spacer()
                 Spacer()
+                
                 Text("Guess the Flag")
                     .font(.largeTitle.bold())
                         .foregroundColor(.white)
@@ -112,7 +111,6 @@ struct ContentView: View {
         
         askQuestion()
     }
-    
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
