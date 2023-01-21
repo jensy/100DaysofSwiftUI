@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showingScore = false
+    @State private var showingReset = false
     @State private var scoreTitle = ""
     @State private var score = 0
     @State private var roundCount = 1
-    @State private var rating = "great"
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
@@ -69,16 +69,16 @@ struct ContentView: View {
             }
         }
         .alert(scoreTitle, isPresented: $showingScore) {
-            if roundCount <= 8 {
-                Button("Continue", action: askQuestion)
-            } else {
-                Button("Restart game", action: resetGame)
-            }
+            Button("Continue", action: askQuestion)
         } message: {
-            Text(roundCount <= 8 ? "Score: \(score)" : "Your final score is \(score) That is pretty \(rating)")
+            Text("Score: \(score)")
+        }
+        .alert(scoreTitle, isPresented: $showingReset) {
+            Button("Restart the game", action: resetGame)
+        } message: {
+            Text(score >= 6 ? "Your final score is: \(score) \nWell done!" : "Your final score is: \(score) \nBetter work on your flags…" )
         }
     }
-    
     
     func flagTapped(_ number: Int) {
             if number == correctAnswer {
@@ -91,7 +91,11 @@ struct ContentView: View {
                 roundCount += 1
             }
         
-        showingScore = true
+            if roundCount <= 8 {
+                showingScore = true
+            } else {
+                showingReset = true
+            }
     }
     
     func askQuestion() {
@@ -102,6 +106,8 @@ struct ContentView: View {
     func resetGame() {
         roundCount = 1
         score = 0
+        
+        askQuestion()
     }
     
     
