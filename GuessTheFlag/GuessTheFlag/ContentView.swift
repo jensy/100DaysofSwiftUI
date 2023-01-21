@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     @State private var score = 0
+    @State private var roundCount = 1
+    @State private var rating = "great"
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
@@ -31,7 +33,7 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                VStack(spacing: 15) {
+                VStack(spacing: 20) {
                     VStack() {
                         Text("Tap the flag of")
                             .foregroundStyle(.secondary)
@@ -46,7 +48,6 @@ struct ContentView: View {
                         } label: {
                             Image(countries[number])
                                 .renderingMode(.original)
-                                .clipShape(Capsule())
                                 .shadow(radius: 8)
                         }
                     }
@@ -68,21 +69,27 @@ struct ContentView: View {
             }
         }
         .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
+            if roundCount <= 8 {
+                Button("Continue", action: askQuestion)
+            } else {
+                Button("Restart game", action: resetGame)
+            }
         } message: {
-            Text("Your score is \(score)")
+            Text(roundCount <= 8 ? "Score: \(score)" : "Your final score is \(score) That is pretty \(rating)")
         }
     }
     
     
     func flagTapped(_ number: Int) {
-        if number == correctAnswer {
-            scoreTitle = "Correct"
-            score += 1
-        } else {
-            scoreTitle = "Wrong, sorry"
-            score -= 1
-        }
+            if number == correctAnswer {
+                scoreTitle = "Correct!"
+                score += 1
+                roundCount += 1
+            } else if number != correctAnswer {
+                scoreTitle = "Wrong, sorry! This is the flag of \(countries[number])"
+                score -= 1
+                roundCount += 1
+            }
         
         showingScore = true
     }
@@ -90,6 +97,11 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func resetGame() {
+        roundCount = 1
+        score = 0
     }
     
     
