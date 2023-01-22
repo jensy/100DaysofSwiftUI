@@ -8,16 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var useRedText = false
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Sophie")
-                .font(.largeTitle)
-            Text("Gus")
-            Text("Meve")
-            Text("Stellah")
+    // Creating views as properties
+    @ViewBuilder var motto1: some View {
+        HStack {
+            Text("Draco dormiens")
+            Text("Draco dormiens")
         }
-        .font(.title)
+    }
+    
+    let motto2 = Text("nunquam titillandus")
+    
+    var body: some View {
+        VStack() {
+            motto1
+                .foregroundColor(.red)
+            motto2
+        }
     }
 }
 
