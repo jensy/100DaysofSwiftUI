@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var useRedText = false
     var body: some View {
         VStack {
-            Text("Hello, world!")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.red)
-                .font(.system(size: 48))
+            Button("Hello world") {
+                useRedText.toggle()
+            }
+            .foregroundColor(useRedText ? .red : .blue)
         }
     }
 }
