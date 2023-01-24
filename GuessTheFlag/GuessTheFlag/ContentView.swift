@@ -19,6 +19,20 @@ struct FlagImage: View {
     }
 }
 
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+}
+
 struct ContentView: View {
     @State private var showingScore = false
     @State private var showingReset = false
@@ -42,8 +56,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Text("Guess the Flag")
-                    .font(.largeTitle.bold())
-                        .foregroundColor(.white)
+                    .titleStyle()
                 
                 Spacer()
                 
