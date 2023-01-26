@@ -76,7 +76,9 @@ struct ContentView: View {
                 
                 VStack {
                     Text("Score: \(score)")
+                        .frame(minHeight: 60)
                         .font(.headline)
+                    
                 }
             }
             .navigationTitle("Rock, paper, scissors")
