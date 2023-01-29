@@ -8,25 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    var dogs = ["Sophie", "Stellah", "Meve", "Gus"]
+    
     var body: some View {
-        List {
-            Section("Section 1") {
-                Text("Static row 1")
-                Text("Static row 2")
-            }
-            
-            Section("Section 2") {
-                ForEach(0..<20) {
-                    Text("Hello, \($0)")
+        NavigationView {
+            List {
+                Section("Dogs") {
+                    ForEach(dogs, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
-            
-            Section("Section 3") {
-                Text("Static row 3")
-                Text("Static row 4")
-            }
+            .listStyle(.grouped)
+            .navigationTitle("WordScramble")
         }
-        .listStyle(.grouped)
+        
     }
 }
 
