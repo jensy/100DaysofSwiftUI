@@ -16,36 +16,46 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    @State private var score = 0
+    
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    TextField("Enter your word", text: $newWord)
-                        .autocapitalization(.none)
-                }
-                
-                Section {
-                    ForEach(usedWords, id: \.self) { word in
-                        HStack {
-                            Image(systemName: "\(word.count).circle")
-                            Text(word)
+            VStack {
+                VStack {
+                    List {
+                        Section {
+                            TextField("Enter your word", text: $newWord)
+                                .autocapitalization(.none)
+                        }
+                        
+                        Section {
+                            ForEach(usedWords, id: \.self) { word in
+                                HStack {
+                                    Image(systemName: "\(word.count).circle")
+                                    Text(word)
+                                }
+                            }
+                        } header: {
+                            Text("Used words")
                         }
                     }
-                } header: {
-                    Text("Used words")
+                    .listStyle(.grouped)
+                    .navigationTitle(rootWord)
+                    .onSubmit(addNewWord)
+                    .onAppear(perform: startGame)
+                    .alert(errorTitle, isPresented: $showingError) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text(errorMessage)
+                    }
+                    .toolbar{
+                        Button("New game", action: startGame)
+                    }
                 }
-            }
-            .listStyle(.grouped)
-            .navigationTitle(rootWord)
-            .onSubmit(addNewWord)
-            .onAppear(perform: startGame)
-            .alert(errorTitle, isPresented: $showingError) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(errorMessage)
-            }
-            .toolbar{
-                Button("New word", action: startGame)
+                VStack {
+                    Text("Score: \(score)")
+                        .font(.title)
+                }
             }
         }
     }
@@ -82,7 +92,10 @@ struct ContentView: View {
         withAnimation() {
             usedWords.insert(answer, at: 0)
         }
+        
         newWord = ""
+        
+        score += answer.count + 1 // +1 point for each new word
     }
     
     func startGame() {
