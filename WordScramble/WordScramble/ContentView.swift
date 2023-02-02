@@ -35,6 +35,7 @@ struct ContentView: View {
                     Text("Used words")
                 }
             }
+            .listStyle(.grouped)
             .navigationTitle(rootWord)
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
@@ -51,7 +52,17 @@ struct ContentView: View {
         guard answer.count > 0 else { return }
         
         guard isOriginal(word: answer) else {
-            wordError(title: "Word used already", message: "Be more original")
+            wordError(title: "Word used already", message: "Be more original!")
+            return
+        }
+        
+        guard isNotSameWord(word: answer) else {
+            wordError(title: "Word is the same", message: "You can't use the same word.")
+            return
+        }
+        
+        guard isLongEnough(word: answer) else {
+            wordError(title: "Word is too short", message: "Only words with at least 3 characters are allowed.")
             return
         }
         
@@ -85,6 +96,18 @@ struct ContentView: View {
     
     func isOriginal(word: String) -> Bool {
         !usedWords.contains(word)
+    }
+    
+    func isNotSameWord(word: String) -> Bool {
+        word != rootWord
+    }
+    
+    func isLongEnough(word: String) -> Bool {
+        if word.count >= 3 {
+            return true
+        } else {
+            return false
+        }
     }
     
     func isPossible(word: String) -> Bool {
