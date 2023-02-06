@@ -42,6 +42,9 @@ struct ContentView: View {
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
+    @State private var animationAmount = 0.0
+    @State private var spinFlag = false
+    
     var body: some View {
         ZStack() {
             RadialGradient(stops: [
@@ -72,9 +75,13 @@ struct ContentView: View {
                     ForEach(0..<3) { number in
                         Button {
                             flagTapped(number)
+                            withAnimation() {
+                                animationAmount += 360
+                            }
                         } label: {
                             FlagImage(countries: countries, number: number)
                         }
+                        .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -84,6 +91,10 @@ struct ContentView: View {
                 .padding()
                 
                 Text("Score: \(score)")
+                    .foregroundColor(.white)
+                    .font(.title.bold())
+                
+                Text("spinFlag: \(String(spinFlag))")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
@@ -109,6 +120,8 @@ struct ContentView: View {
                 scoreTitle = "Correct!"
                 score += 1
                 roundCount += 1
+                spinFlag = true
+
             } else if number != correctAnswer {
                 scoreTitle = "Wrong, sorry! This is the flag of \(countries[number])"
                 score -= 1

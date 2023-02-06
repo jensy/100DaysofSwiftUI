@@ -54,7 +54,8 @@ struct ContentView: View {
                 }
                 VStack {
                     Text("Score: \(score)")
-                        .font(.title)
+                        .font(.headline)
+                        .padding(20)
                 }
             }
         }
