@@ -43,7 +43,13 @@ struct ContentView: View {
     @State private var correctAnswer = Int.random(in: 0...2)
     
     @State private var animationAmount = 0.0
-    @State private var spinFlag = false
+    
+    @State private var selectedFlag = 0
+    @State private var animateCorrect = 0.0
+    @State private var animateOpacity = 1.0
+    @State private var nextToCorrect = false
+    @State private var nextToWrong = false
+    
     
     var body: some View {
         ZStack() {
@@ -72,16 +78,20 @@ struct ContentView: View {
                             .font(.largeTitle.weight(.semibold))
                     }
                     
-                    ForEach(0..<3) { number in
+                    ForEach(0..<3, id: \.self) { number in
                         Button {
-                            flagTapped(number)
-                            withAnimation() {
-                                animationAmount += 360
-                            }
+                            self.flagTapped(number)
+                            self.selectedFlag = number
+                            
                         } label: {
                             FlagImage(countries: countries, number: number)
                         }
-                        .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
+                        .rotation3DEffect(.degrees(number == self.correctAnswer ? self.animateCorrect : 0), axis: (x: 0, y: 1, z: 0))
+                        .opacity(number != self.correctAnswer && self.nextToCorrect ? self.animateOpacity : 1)
+                        
+                        .rotationEffect(self.nextToWrong && self.selectedFlag == number ? .degrees(6) : .degrees(0))
+                        .opacity(self.nextToWrong && self.selectedFlag != number ? self.animateOpacity : 1)
+                                                
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -91,10 +101,6 @@ struct ContentView: View {
                 .padding()
                 
                 Text("Score: \(score)")
-                    .foregroundColor(.white)
-                    .font(.title.bold())
-                
-                Text("spinFlag: \(String(spinFlag))")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
@@ -120,12 +126,19 @@ struct ContentView: View {
                 scoreTitle = "Correct!"
                 score += 1
                 roundCount += 1
-                spinFlag = true
-
+                withAnimation {
+                    self.animateCorrect += 360
+                    self.animateOpacity = 0.25
+                    self.nextToCorrect = true
+                }
             } else if number != correctAnswer {
                 scoreTitle = "Wrong, sorry! This is the flag of \(countries[number])"
                 score -= 1
                 roundCount += 1
+                withAnimation {
+                    self.animateOpacity = 0.25
+                    self.nextToWrong = true
+                }
             }
         
             if roundCount <= 8 {
@@ -138,6 +151,8 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        nextToCorrect = false
+        nextToWrong = false
     }
     
     func resetGame() {
