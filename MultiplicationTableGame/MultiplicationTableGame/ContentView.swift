@@ -19,8 +19,9 @@ struct ContentView: View {
     
     @State private var multiplicationTable = 2
     @State private var questions = [5, 10, 20]
-    
     @State private var answer = 35
+    
+    @State private var score = 0
     
     var body: some View {
         NavigationView {
@@ -96,6 +97,11 @@ struct ContentView: View {
         
         //  Game mode will hide settings
         //  Game mode will show form: Question, answer, next button
+        
+        //  Game logic: Randomize questions based on settings inputs: ForEach questions { ForEach 0...12 x selected table }
+        //  Game logic: Keep track of correct answers and save score
+        
+        //  View: Sore card that shows final score and lets user restart game
     }
     
     func newQuestion() {
