@@ -14,8 +14,13 @@
 
 import SwiftUI
 
+struct CustomColor {
+    static let peach = Color("peach")
+}
+
 struct ContentView: View {
     @State private var gameMode = false
+    @State private var scoreMode = false
     
     @State private var multiplicationTable = 2
     @State private var questions = [5, 10, 20]
@@ -27,6 +32,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 
+                //  Settings
                 VStack {
                     Stepper(value: $multiplicationTable, in: 2...12, step: 1) {
                         Text("Multiplication table: \(multiplicationTable)")
@@ -61,11 +67,11 @@ struct ContentView: View {
                     .tint(.primary)
                 }
                 .frame(maxHeight: gameMode ? 0 : .infinity)
-                .opacity(gameMode ? 0 : 1)
+                .opacity(gameMode ? 0 : 1) //   0 : 1
                 
                 Spacer()
                 
-                //  Game mode on
+                //  Game mode
                 VStack {
                     Form {
                         Text("What is 7 x 5?")
@@ -73,18 +79,36 @@ struct ContentView: View {
                         Section("Your answer") {
                             TextField("Your answer", value: $answer, format: .number)
                         }
-                        
-                        Button {
-                            newQuestion()
-                        } label: {
-                            Text("Start multiplying")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.primary)
                     }
+                    
+                    Button {
+                        askQuestion()
+                    } label: {
+                        Text("Check answer")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.primary)
                 }
-                .opacity(gameMode ? 1 : 0)
+                .opacity(gameMode ? 1 : 0) //   1 : 0
+                
+                // Score card
+                VStack() {
+                    Text("Final score")
+                        .font(.title)
+                    Text("\(score)")
+                        .font(.system(size: 96))
+                    
+                    Text("Congratulations!")
+                        .foregroundColor(.secondary)
+                        
+                }
+                .padding(20)
+                .frame(maxWidth: .infinity)
+                .background(CustomColor.peach)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .opacity(scoreMode ? 1 : 0)
+                
             }
             .padding(20)
             .navigationTitle("Mutiply Game")
@@ -95,17 +119,18 @@ struct ContentView: View {
         //  Start game switches on gameMode
         gameMode = true
         
-        //  Game mode will hide settings
-        //  Game mode will show form: Question, answer, next button
-        
-        //  Game logic: Randomize questions based on settings inputs: ForEach questions { ForEach 0...12 x selected table }
-        //  Game logic: Keep track of correct answers and save score
-        
         //  View: Sore card that shows final score and lets user restart game
     }
     
-    func newQuestion() {
+    func askQuestion() {
         //  Ask next question
+        //  Game logic: Randomize questions based on settings inputs: ForEach questions { ForEach 0...12 x selected table }
+        //  Game logic: Keep track of correct answers and save score
+    }
+    
+    func showScorecard() {
+        gameMode = false
+        scoreMode = true
     }
 }
 
