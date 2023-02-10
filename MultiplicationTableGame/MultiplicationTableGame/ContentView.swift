@@ -19,19 +19,22 @@ struct CustomColor {
 }
 
 struct ContentView: View {
+    @State private var settingsMode = true
     @State private var gameMode = false
     @State private var scoreMode = false
     
     @State private var multiplicationTable = 2
     @State private var questions = [5, 10, 20]
     @State private var questionSelection = 1
+    @State private var questionsAsked = 0
+    
     @State private var answer = 35
     
     @State private var score = 0
     
     var body: some View {
         NavigationView {
-            VStack {
+            ZStack {
                 
                 //  Settings
                 VStack {
@@ -68,12 +71,12 @@ struct ContentView: View {
                     .tint(.primary)
                 }
                 .frame(maxHeight: gameMode ? 0 : .infinity)
-                .opacity(gameMode ? 0 : 1) //   0 : 1
+                .opacity(settingsMode ? 1 : 0) //   1 : 0
                 
                 Spacer()
                 
                 //  Game mode
-                VStack {
+                ZStack {
                     Form {
                         Text("What is 7 x 5?")
                         
@@ -83,7 +86,7 @@ struct ContentView: View {
                     }
                     
                     Button {
-                        askQuestion()
+                        checkAnswer()
                     } label: {
                         Text("Check answer")
                             .frame(maxWidth: .infinity)
@@ -91,6 +94,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .tint(.primary)
                 }
+                .frame(height: gameMode ? .infinity : .zero)
                 .opacity(gameMode ? 1 : 0) //   1 : 0
                 
                 // Score card
@@ -118,9 +122,19 @@ struct ContentView: View {
     
     func startGame() {
         //  Start game switches on gameMode
+        settingsMode = false
         gameMode = true
         
-        //  View: Sore card that shows final score and lets user restart game
+        questionsAsked = 1
+    }
+    
+    func checkAnswer() {
+        if questionsAsked < questions[questionSelection] {
+            askQuestion()
+            questionsAsked += 1
+        } else {
+            showScoreCard()
+        }
     }
     
     func askQuestion() {
