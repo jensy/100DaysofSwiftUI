@@ -23,12 +23,14 @@ struct ContentView: View {
     @State private var gameMode = false
     @State private var scoreMode = false
     
-    @State private var multiplicationTable = 2
     @State private var questions = [5, 10, 20]
     @State private var questionSelection = 1
     @State private var questionsAsked = 0
     
-    @State private var answer = 35
+    @State private var multiplicationTable = 2
+    @State private var randomNumber = Int.random(in: 0...12)
+    @State private var correctAnswer = 0
+    @State private var guess = 0
     
     @State private var score = 0
     
@@ -76,23 +78,27 @@ struct ContentView: View {
                 Spacer()
                 
                 //  Game mode
-                ZStack {
+                VStack {
                     Form {
-                        Text("What is 7 x 5?")
+                        Text("What is \(randomNumber) x \(multiplicationTable)?")
                         
-                        Section("Your answer") {
-                            TextField("Your answer", value: $answer, format: .number)
+                        Section("Your guess") {
+                            TextField("Your guess", value: $guess, format: .number)
                         }
                     }
                     
                     Button {
-                        checkAnswer()
+                        checkGuess()
                     } label: {
-                        Text("Check answer")
+                        Text("Check")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.primary)
+                    
+                    Text("Score: \(score)")
+                    Text("Correct: \(correctAnswer)")
+                    Text("Guess \(guess)")
                 }
                 .frame(height: gameMode ? .infinity : .zero)
                 .opacity(gameMode ? 1 : 0) //   1 : 0
@@ -126,21 +132,30 @@ struct ContentView: View {
         gameMode = true
         
         questionsAsked = 1
+        correctAnswer = randomNumber * multiplicationTable
     }
     
-    func checkAnswer() {
+    func checkGuess() {
         if questionsAsked < questions[questionSelection] {
-            askQuestion()
+            if guess == correctAnswer {
+                score += 1
+            } else {
+                score -= 1
+            }
+            
+            randomNumber = Int.random(in: 0...12)
+            correctAnswer = randomNumber * multiplicationTable
+            
             questionsAsked += 1
+            guess = 0
         } else {
+            if guess == correctAnswer {
+                score += 1
+            } else {
+                score -= 1
+            }
             showScoreCard()
         }
-    }
-    
-    func askQuestion() {
-        //  Ask next question
-        //  Game logic: Randomize questions based on settings inputs: ForEach questions { ForEach 0...12 x selected table }
-        //  Game logic: Keep track of correct answers and save score
     }
     
     func showScoreCard() {
