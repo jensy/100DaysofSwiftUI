@@ -104,7 +104,6 @@ struct ContentView: View {
                     
                     Text("Score: \(score)")
                 }
-                .frame(height: gameMode ? .infinity : .zero)
                 .opacity(gameMode ? 1 : 0) //   1 : 0
                 
                 // Score card
@@ -135,7 +134,7 @@ struct ContentView: View {
                 
             }
             .padding(20)
-            .navigationTitle("Mutiply Game")
+            .navigationTitle("Multiply Game")
         }
     }
     
