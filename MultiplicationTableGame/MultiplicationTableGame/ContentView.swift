@@ -24,6 +24,7 @@ struct ContentView: View {
     
     @State private var multiplicationTable = 2
     @State private var questions = [5, 10, 20]
+    @State private var questionSelection = 1
     @State private var answer = 35
     
     @State private var score = 0
@@ -39,7 +40,7 @@ struct ContentView: View {
                     }
                     
                     Section {
-                        Picker("How many questions?", selection: $questions) {
+                        Picker("How many questions?", selection: $questionSelection) {
                             ForEach(0..<questions.count, id: \.self) {
                                 Text("\(self.questions[$0])")
                             }
@@ -128,7 +129,7 @@ struct ContentView: View {
         //  Game logic: Keep track of correct answers and save score
     }
     
-    func showScorecard() {
+    func showScoreCard() {
         gameMode = false
         scoreMode = true
     }
