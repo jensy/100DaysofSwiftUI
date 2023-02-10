@@ -12,6 +12,10 @@
 //  There is a "settings" view and a "game mode", as well as a "score card"
 //  Show how many questions they got right, let them restart the game from there
 
+//  To-dos
+//  Reset TextField on submit
+//  Add some fun to this
+
 import SwiftUI
 
 struct CustomColor {
@@ -83,9 +87,11 @@ struct ContentView: View {
                         Text("What is \(randomNumber) x \(multiplicationTable)?")
                         
                         Section("Your guess") {
-                            TextField("Your guess", value: $guess, format: .number)
+                            TextField("", value: $guess, format: .number)
+                                .keyboardType(.decimalPad)
                         }
                     }
+                    .frame(maxHeight: 220)
                     
                     Button {
                         checkGuess()
@@ -97,8 +103,6 @@ struct ContentView: View {
                     .tint(.primary)
                     
                     Text("Score: \(score)")
-                    Text("Correct: \(correctAnswer)")
-                    Text("Guess \(guess)")
                 }
                 .frame(height: gameMode ? .infinity : .zero)
                 .opacity(gameMode ? 1 : 0) //   1 : 0
@@ -112,6 +116,15 @@ struct ContentView: View {
                     
                     Text("Congratulations!")
                         .foregroundColor(.secondary)
+                    
+                    Button {
+                        settingsMode = true
+                        scoreMode = false
+                        score = 0
+                        guess = 0
+                    } label: {
+                        Text("Restart game")
+                    }
                         
                 }
                 .padding(20)
@@ -161,6 +174,8 @@ struct ContentView: View {
     func showScoreCard() {
         gameMode = false
         scoreMode = true
+        
+        //  Let user restart game
     }
 }
 
