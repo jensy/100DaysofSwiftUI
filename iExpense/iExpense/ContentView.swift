@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct User {
-    var firstName = "Sophie"
-    var lastName = "Noodle"
+class User: ObservableObject {
+    @Published var firstName = "Sophie"
+    @Published var lastName = "Noodle"
 }
 
 struct ContentView: View {
-    @State private var user = User()
+    //  Creating data for first time. Reading or modifying data, use @ObservedObject instead
+    @StateObject var user = User()
     
     var body: some View {
         VStack {
