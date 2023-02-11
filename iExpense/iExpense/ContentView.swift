@@ -7,23 +7,33 @@
 
 import SwiftUI
 
-class User: ObservableObject {
-    @Published var firstName = "Sophie"
-    @Published var lastName = "Noodle"
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    let name: String
+    
+    var body: some View {
+        Text("Hello, \(name)")
+        Button("Dismiss", role: .destructive) {
+            dismiss()
+        }
+        .buttonStyle(.borderedProminent)
+
+    }
 }
 
 struct ContentView: View {
-    //  Creating data for first time. Reading or modifying data, use @ObservedObject instead
-    @StateObject var user = User()
+    @State private var showingSheet = false
     
     var body: some View {
         VStack {
-            Text("Your name is \(user.firstName) \(user.lastName)!")
-            
-            TextField("First name", text: $user.firstName)
-            TextField("Last name", text: $user.lastName)
+            Button("Show Sophie Noodle") {
+                showingSheet.toggle()
+            }
         }
-        .padding()
+        .sheet(isPresented: $showingSheet) {
+            SecondView(name: "Sophie, woof")
+        }
     }
 }
 
