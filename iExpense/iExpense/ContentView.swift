@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var expenses = Expenses()
+     
     @State private var showingAddExpense = false
     
     var body: some View {
@@ -69,6 +70,10 @@ struct ContentView: View {
     
     func removeItems(at offsets: IndexSet) {
         expenses.items.remove(atOffsets: offsets)
+        
+        //  This is not working anymore because something does not match
+        //  Probably the index, do I need a different identifier? RowIndex?
+        //  Alternatively, save data in different structs: PersonalExpenses, BusinessExpenses
     }
 }
 
