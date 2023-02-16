@@ -14,6 +14,7 @@
 		D465A9A42999AB7B001E15E9 /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465A9A32999AB7B001E15E9 /* ExpenseItem.swift */; };
 		D465A9A62999ABB4001E15E9 /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465A9A52999ABB4001E15E9 /* Expenses.swift */; };
 		D465A9A82999AF93001E15E9 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465A9A72999AF93001E15E9 /* AddView.swift */; };
+		D4F1E5BB299DC1A900A058D8 /* ExpenseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F1E5BA299DC1A900A058D8 /* ExpenseSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		D465A9A32999AB7B001E15E9 /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
 		D465A9A52999ABB4001E15E9 /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		D465A9A72999AF93001E15E9 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		D4F1E5BA299DC1A900A058D8 /* ExpenseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				D465A997299852C8001E15E9 /* ContentView.swift */,
 				D465A9A72999AF93001E15E9 /* AddView.swift */,
 				D465A9A32999AB7B001E15E9 /* ExpenseItem.swift */,
+				D4F1E5BA299DC1A900A058D8 /* ExpenseSection.swift */,
 				D465A9A52999ABB4001E15E9 /* Expenses.swift */,
 				D465A999299852C8001E15E9 /* Assets.xcassets */,
 				D465A99B299852C8001E15E9 /* Preview Content */,
@@ -150,6 +153,7 @@
 				D465A998299852C8001E15E9 /* ContentView.swift in Sources */,
 				D465A9A82999AF93001E15E9 /* AddView.swift in Sources */,
 				D465A9A42999AB7B001E15E9 /* ExpenseItem.swift in Sources */,
+				D4F1E5BB299DC1A900A058D8 /* ExpenseSection.swift in Sources */,
 				D465A996299852C8001E15E9 /* iExpenseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

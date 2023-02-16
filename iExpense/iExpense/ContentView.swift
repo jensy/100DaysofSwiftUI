@@ -15,43 +15,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                Section("Personal") {
-                    ForEach(expenses.items.filter { $0.type.contains("Personal") }) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                                .foregroundColor(item.amount >= 10 ? .red.opacity(1) : .red.opacity(0.5))
-                                .fontWeight(item.amount >= 100 ? .semibold : .regular)
-                        }
-                    }
-                    .onDelete(perform: removeItems)
-                }
-                
-                Section("Business") {
-                    ForEach(expenses.items.filter { $0.type.contains("Business") }) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                                .foregroundColor(item.amount >= 10 ? .red.opacity(1) : .red.opacity(0.5))
-                                .fontWeight(item.amount >= 100 ? .semibold : .regular)
-                        }
-                    }
-                    .onDelete(perform: removeItems)
-                }
+                ExpenseSection(title: "Business", expenses: expenses.businessItems, deleteItems: removeBusinessItems)
+                ExpenseSection(title: "Personal", expenses: expenses.personalItems, deleteItems: removePersonalItems)
             }
             .listStyle(.grouped)
             .navigationTitle("iExpense")
@@ -68,12 +33,26 @@ struct ContentView: View {
         }
     }
     
-    func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
-        
-        //  This is not working anymore because something does not match
-        //  Probably the index, do I need a different identifier? RowIndex?
-        //  Alternatively, save data in different structs: PersonalExpenses, BusinessExpenses
+    func removeItems(at offsets: IndexSet, in inputArray: [ExpenseItem]) {
+        var objectsToDelete = IndexSet()
+
+        for offset in offsets {
+            let item = inputArray[offset]
+
+            if let index = expenses.items.firstIndex(of: item) {
+                objectsToDelete.insert(index)
+            }
+        }
+
+        expenses.items.remove(atOffsets: objectsToDelete)
+    }
+    
+    func removePersonalItems(at offsets: IndexSet) {
+        removeItems(at: offsets, in: expenses.personalItems)
+    }
+
+    func removeBusinessItems(at offsets: IndexSet) {
+        removeItems(at: offsets, in: expenses.businessItems)
     }
 }
 
