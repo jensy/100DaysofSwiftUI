@@ -7,28 +7,20 @@
 
 import SwiftUI
 
-struct CustomText: View {
-    let text: String
-    
-    var body: some View {
-        Text(text)
-    }
-    
-    init(text: String) {
-        print("Creating a new CustomText")
-        self.text = text
-    }
-}
-
 struct ContentView: View {
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 10) {
-                ForEach(0..<100) {
-                    CustomText(text: "Hi \($0)")
+        NavigationView {
+            VStack {
+                List(0..<100) { row in
+                    NavigationLink {
+                        Text("Detail \(row)")
+                    } label: {
+                        Text("Tap \(row)")
+                    }
                 }
+                .listStyle(.grouped)
             }
-            .frame(maxWidth: .infinity)
+            .navigationTitle("Moonshot")
         }
     }
 }
