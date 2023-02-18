@@ -5,11 +5,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "armstrong@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "357EE26A-7D77-43C8-B007-91D9BBAC05AF_1_105_c.jpeg",
+      "filename" : "armstrong@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
