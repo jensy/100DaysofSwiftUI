@@ -8,22 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingGrid = false
+    @State private var showingGrid = true
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                Group {
-                    if showingGrid {
-                        GridView()
-                    } else if !showingGrid {
-                        ListView()
-                    }
+            Group {
+                if showingGrid {
+                    GridView()
+                } else {
+                    ListView()
                 }
             }
+            .padding(.top, 10)
             .navigationTitle("Moonshot")
             .background(.darkBackground)
             .preferredColorScheme(.dark)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showingGrid.toggle()
+                    } label: {
+                        Image(systemName: showingGrid ? "list.star" : "square.grid.2x2")
+                            .foregroundColor(.white.opacity(0.5))
+                    }
+                }
+            }
         }
     }
 }

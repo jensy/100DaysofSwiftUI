@@ -23,7 +23,6 @@ struct ListView: View {
                 }
             }
             .listStyle(.plain)
-            .listRowBackground(Color.darkBackground)
         }
     }
 }
