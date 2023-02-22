@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MissionView: View {
+    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
+    let missions: [Mission] = Bundle.main.decode("missions.json")
+    
     struct CrewMember {
         let role: String
         let astronaut: Astronaut
@@ -53,35 +56,7 @@ struct MissionView: View {
                     }
                     .padding(.bottom)
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(crew, id: \.role) { CrewMember in
-                                NavigationLink {
-                                    AstronautView(astronaut: CrewMember.astronaut)
-                                } label: {
-                                    HStack {
-                                        Image(CrewMember.astronaut.id)
-                                            .resizable()
-                                            .frame(width: 104, height: 72)
-                                            .overlay(
-                                                Rectangle()
-                                                    .strokeBorder(.foreground, lineWidth: 1)
-                                            )
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(CrewMember.astronaut.name)
-                                                .foregroundColor(.white)
-                                                .font(.headline)
-                                            Text(CrewMember.role)
-                                                .foregroundColor(CrewMember.role == "Command Pilot" ? .indigo : .secondary)
-                                                .font(CrewMember.role == "Command Pilot" ? .body.bold() : .body)
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                                }
-                            }
-                        }
-                    }
+                    CrewView(mission: mission, astronauts: astronauts)
                 }
                 .padding()
             }
