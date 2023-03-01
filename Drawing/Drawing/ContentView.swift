@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct Arrow: Shape {
+    var strokeWidth: Double
+    
+    var animatableData: Double {
+        get { strokeWidth }
+        set { strokeWidth = newValue }
+    }
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -26,8 +32,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Arrow()
+            Arrow(strokeWidth: strokeWidth)
                 .stroke(.indigo, lineWidth: strokeWidth)
+                .onTapGesture {
+                    withAnimation {
+                        strokeWidth = Double.random(in: 10...50)
+                    }
+                }
         }
     }
 }
