@@ -40,10 +40,10 @@ struct ColorCyclingRectangle: View {
                         LinearGradient(
                                 gradient: Gradient(colors: [
                                     color(for: value, brightness: 1),
-                                    color(for: value, brightness: 0.5)
+                                    color(for: value, brightness: 0)
                                 ]),
-                                startPoint: .top,
-                                endPoint: .bottom
+                                startPoint: UnitPoint(x: 0, y: 0),
+                                endPoint: UnitPoint(x: 1, y: 0)
                             ),
                             lineWidth: 2
                     )
