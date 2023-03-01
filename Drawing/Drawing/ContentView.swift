@@ -27,8 +27,35 @@ struct Arrow: Shape {
     }
 }
 
+struct ColorCyclingRectangle: View {
+    var amount = 0.0
+    var steps = 100
+
+    var body: some View {
+        ZStack {
+            ForEach(0..<steps, id: \.self) { value in
+                Rectangle()
+                    .inset(by: Double(value))
+                    .strokeBorder(color(for: value, brightness: 1), lineWidth: 2)
+            }
+        }
+    }
+
+    func color(for value: Int, brightness: Double) -> Color {
+        var targetHue = Double(value) / Double(steps) + amount
+
+        if targetHue > 1 {
+            targetHue -= 1
+        }
+
+        return Color(hue: targetHue, saturation: 1, brightness: brightness)
+    }
+}
+
 struct ContentView: View {
     @State private var strokeWidth = 10.0
+    
+    @State private var colorCycle = 0.0
     
     var body: some View {
         VStack {
@@ -39,6 +66,14 @@ struct ContentView: View {
                         strokeWidth = Double.random(in: 10...50)
                     }
                 }
+            
+            VStack {
+                ColorCyclingRectangle(amount: colorCycle)
+                    .frame(width: 300, height: 300)
+                
+                Slider(value: $colorCycle)
+            }
+            .padding(40)
         }
     }
 }
