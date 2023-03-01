@@ -36,7 +36,17 @@ struct ColorCyclingRectangle: View {
             ForEach(0..<steps, id: \.self) { value in
                 Rectangle()
                     .inset(by: Double(value))
-                    .strokeBorder(color(for: value, brightness: 1), lineWidth: 2)
+                    .strokeBorder(
+                        LinearGradient(
+                                gradient: Gradient(colors: [
+                                    color(for: value, brightness: 1),
+                                    color(for: value, brightness: 0.5)
+                                ]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            ),
+                            lineWidth: 2
+                    )
             }
         }
     }
@@ -68,8 +78,11 @@ struct ContentView: View {
                 }
             
             VStack {
-                ColorCyclingRectangle(amount: colorCycle)
-                    .frame(width: 300, height: 300)
+                ZStack {
+                    ColorCyclingRectangle(amount: colorCycle)
+                        .frame(width: 300, height: 300)
+                }
+                .drawingGroup()
                 
                 Slider(value: $colorCycle)
             }
