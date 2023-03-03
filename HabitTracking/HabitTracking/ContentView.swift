@@ -14,12 +14,13 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var activities = Activities()
+    @State private var openSheet = false
     
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    NavigationLink {
+                    NavigationLink() {
                         ActivityView()
                     } label: {
                         HStack {
@@ -29,6 +30,9 @@ struct ContentView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
+                    }
+                    .onLongPressGesture {
+                        //  Eventually I want to track habit on long press
                     }
                     //  activities.activities?!
                     ForEach(activities.activities) { activity in
@@ -47,11 +51,14 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        //  Code
+                        openSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $openSheet) {
+                AddActivityView()
             }
         }
     }
