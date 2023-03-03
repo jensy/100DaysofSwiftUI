@@ -29,7 +29,7 @@ struct Arrow: Shape {
 
 struct ColorCyclingRectangle: View {
     var amount = 0.0
-    var steps = 100
+    var steps = 400
 
     var body: some View {
         ZStack {
@@ -44,8 +44,7 @@ struct ColorCyclingRectangle: View {
                                 ]),
                                 startPoint: UnitPoint(x: 0, y: 0),
                                 endPoint: UnitPoint(x: 1, y: 0)
-                            ),
-                            lineWidth: 2
+                            )
                     )
             }
         }
