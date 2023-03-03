@@ -11,6 +11,7 @@
 		D4D44F9C29B266D9002F7131 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D44F9B29B266D9002F7131 /* ContentView.swift */; };
 		D4D44F9E29B266DA002F7131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D44F9D29B266DA002F7131 /* Assets.xcassets */; };
 		D4D44FA129B266DA002F7131 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D44FA029B266DA002F7131 /* Preview Assets.xcassets */; };
+		D4D44FA829B267CF002F7131 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D44FA729B267CF002F7131 /* Activity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		D4D44F9B29B266D9002F7131 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D4D44F9D29B266DA002F7131 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4D44FA029B266DA002F7131 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D4D44FA729B267CF002F7131 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				D4D44F9929B266D9002F7131 /* HabitTrackingApp.swift */,
 				D4D44F9B29B266D9002F7131 /* ContentView.swift */,
+				D4D44FA729B267CF002F7131 /* Activity.swift */,
 				D4D44F9D29B266DA002F7131 /* Assets.xcassets */,
 				D4D44F9F29B266DA002F7131 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D44FA829B267CF002F7131 /* Activity.swift in Sources */,
 				D4D44F9C29B266D9002F7131 /* ContentView.swift in Sources */,
 				D4D44F9A29B266D9002F7131 /* HabitTrackingApp.swift in Sources */,
 			);
