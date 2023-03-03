@@ -13,29 +13,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var activities: [Activity] = [
-        Activity(id: UUID(), trackedDate: Date.now, name: "Swift", description: "Learning SwiftUI", count: 1),
-        Activity(id: UUID(), trackedDate: Date.now, name: "Drink water", description: "At least 6 glasses of water a day", count: 3),
-        Activity(id: UUID(), trackedDate: Date.now, name: "Spreadsheet day", description: "Once a month", count: 0),
-        Activity(id: UUID(), trackedDate: Date.now, name: "Portuguese", description: "Once a day", count: 0)
-    ]
+    @ObservedObject var activities = Activities()
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(activities) { activity in
-                    HStack {
-                        Text(activity.name)
-                        Spacer()
-                        Text(activity.description)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(activities.activities) { activity in
+                        HStack {
+                            Text(activity.name)
+                            Spacer()
+                            Text(activity.description)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Habits")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        //  Code
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
