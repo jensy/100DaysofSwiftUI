@@ -21,6 +21,7 @@ class Activities: ObservableObject {
              let decoder = JSONDecoder()
              if let decoded = try? decoder.decode([Activity].self, from: activities) {
                  self.activities = decoded
+                 
                  return
              }
          }

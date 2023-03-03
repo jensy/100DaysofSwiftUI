@@ -20,28 +20,21 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 List {
-                    NavigationLink() {
-                        ActivityView()
-                    } label: {
-                        HStack {
-                            Text("Portuguese")
-                            Spacer()
-                            Text("10 minutes every day")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .onLongPressGesture {
-                        //  Eventually I want to track habit on long press
-                    }
                     //  activities.activities?!
                     ForEach(activities.activities) { activity in
-                        HStack {
-                            Text(activity.name)
-                            Spacer()
-                            Text(activity.description)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        NavigationLink() {
+                            ActivityView(activity: activities.activities[0])
+                        } label: {
+                            HStack {
+                                Text("Portuguese")
+                                Spacer()
+                                Text("10 minutes every day")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .onLongPressGesture {
+                            //  Eventually I want to track habit on long press
                         }
                     }
                 }
