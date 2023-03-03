@@ -8,7 +8,8 @@
 import Foundation
 
 struct Activity: Codable, Identifiable {
-    let id: String
+    let id: UUID
+    let trackedDate: Date?
     let name: String
     let description: String
     let count: Int

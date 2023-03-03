@@ -13,15 +13,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    let activities = [
+        Activity(id: UUID(), trackedDate: Date.now, name: "Swift", description: "Learning SwiftUI", count: 1),
+        Activity(id: UUID(), trackedDate: Date.now, name: "Drink water", description: "At least 6 glasses of water a day", count: 3),
+        Activity(id: UUID(), trackedDate: Date.now, name: "Spreadsheet day", description: "Once a month", count: 0),
+        Activity(id: UUID(), trackedDate: Date.now, name: "Portuguese", description: "Once a day", count: 0)
+    ]
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            List {
+                ForEach(activities) { activity in
+                    Text(activity.name)
+                }
+            }
         }
-        .padding()
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
