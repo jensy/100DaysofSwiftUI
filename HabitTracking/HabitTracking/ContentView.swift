@@ -19,6 +19,18 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 List {
+                    NavigationLink {
+                        ActivityView()
+                    } label: {
+                        HStack {
+                            Text("Portuguese")
+                            Spacer()
+                            Text("10 minutes every day")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    //  activities.activities?!
                     ForEach(activities.activities) { activity in
                         HStack {
                             Text(activity.name)
