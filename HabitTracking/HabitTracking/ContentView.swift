@@ -13,7 +13,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let activities = [
+    @State private var activities: [Activity] = [
         Activity(id: UUID(), trackedDate: Date.now, name: "Swift", description: "Learning SwiftUI", count: 1),
         Activity(id: UUID(), trackedDate: Date.now, name: "Drink water", description: "At least 6 glasses of water a day", count: 3),
         Activity(id: UUID(), trackedDate: Date.now, name: "Spreadsheet day", description: "Once a month", count: 0),
@@ -24,7 +24,13 @@ struct ContentView: View {
         VStack {
             List {
                 ForEach(activities) { activity in
-                    Text(activity.name)
+                    HStack {
+                        Text(activity.name)
+                        Spacer()
+                        Text(activity.description)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
         }
